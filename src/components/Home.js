@@ -1,54 +1,52 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { loadAllContest } from '../actions/contest';
 
-
+let contestsData = []
 const Home = (props) => {
-  const [contestData, setContestData] = useState([]);
-  const { isLoggedIn } = useSelector(state => state.auth);
-  const { message } = useSelector(state => state.message);
-  const { contests } = useSelector(state => state.contests !== undefined ? state.contests : []);
+  const { contests } = useSelector(state => {
+    if (state.contest.data !== undefined) {
+      contestsData = state.contest.data
+      return contestsData;
+    }
+    return state.contest.data
+  });
+
+
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-   const resp =  dispatch(loadAllContest());
-    console.log('resp===>', resp);
-    console.log("######", contests);
-  }, [])
+    dispatch(loadAllContest());
+  }, [dispatch])
 
   const goToContest = (e, contestId) => {
     e.preventDefault();
-    console.log("in useEffect -->", isLoggedIn, message);
-    console.log("1-------->", contestId);
     props.history.push("/contest");
-    // setContests();
   }
-  let renderContestList = (contests) => {
-    if (contests !== undefined) {
-      contests.map(item => (
-        <li key={item.id}>
-          <a href='!#' onClick={(event) => {
-            goToContest(event, item.id)
-          }}  >{item.name}</a>
-        </li>
-      ))
-    }
 
+
+
+  const renderList = () => {
+    return contestsData.map((contest) => {
+      return <li className='item' key={contest.id}>
+       <a href='!#' onClick={(e)=>goToContest(e, contest.id)}> {contest.name} </a>
+      </li>
+    })
   }
 
   return (
     <div>
       <ul>
-        {renderContestList(contests)}
+        Constest :
+        {renderList()}
       </ul>
     </div>
 
   );
-
-
 }
+
 
 
 
