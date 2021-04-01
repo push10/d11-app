@@ -8,8 +8,7 @@ import ContestService from "../services/contest.service";
 
 export const loadAllMatches = (contestId) => (dispatch) => {
   return ContestService.getAllMatches(contestId).then(
-    (response) => {
-      console.log("response from loadAllMatches =============>", response);
+    (response) => { 
       dispatch({
         type: LOAD_ALL_MATCHES,
         payload: response.data
