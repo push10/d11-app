@@ -2,10 +2,17 @@ import axios from "axios";
 import {BASE_URL} from '../common/constant';
 
 
-const joinContest = async (userId, league) => {
-  console.log('joining contest ---->',userId, league);
+const joinLeauge = async (userId, league) => { 
   try {
     return await axios.put(`${BASE_URL}/leagues/joinContest/${userId}`,league)
+  } catch (error) {
+    console.error('----------------eroror --------->', error);
+  }
+};
+
+const loadUserLeauges = async (userId) => { 
+  try {
+    return await axios.get(`${BASE_URL}/leagues/list/${userId}`)
   } catch (error) {
     console.error('----------------eroror --------->', error);
   }
@@ -30,8 +37,9 @@ const getContest = (contestId) => {
 };
 
 export default {
-  joinContest,
+  joinLeauge,
   getAllContest,
   getContest,
-  getAllMatches
+  getAllMatches,
+  loadUserLeauges
 };

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { loadAllContest, joinContest } from '../actions/contest';
+import { joinLeauge, loadUserLeauges } from '../actions/contest';
 import Leagues from "./Leagues";
 
 let contestsData = [];
+let leagueData = [];
 const Home = (props) => {
   const { isLoggedIn } = useSelector(state => state.auth);
   const [joiningCode, setJoiningCode] = useState('');
@@ -17,30 +18,40 @@ const Home = (props) => {
     return state.contest.data
   });
 
+  const { leagues } = useSelector(state => {
+    if (state.contest.leagues !== undefined) {
+      leagueData = state.contest.leagues
+      return leagueData;
+    }
+
+    return state.contest.leagues
+  });
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (isLoggedIn) {
-      dispatch(loadAllContest());
+      dispatch(loadUserLeauges());
     } else {
       props.history.push("/login");
     }
   }, [dispatch, isLoggedIn, props.history])
 
-  const goToContest = (e, contestId) => {
-    console.warn(`contests size :${contests}`);
-    e.preventDefault();
-    props.history.push("/contest");
+  const goToContest = (e, contestId) => { 
+    if (e !== undefined) {
+      e.preventDefault();
+      props.history.push("/contest");
+    }
   }
 
 
-  const joinLeauge = (e) => { 
+  const joinLeaugeEvent = (e) => {
     e.preventDefault();
-    dispatch(joinContest(joiningCode));
+    dispatch(joinLeauge(joiningCode));
     setJoiningCode('')
 
   }
-  
+
 
   const renderList = () => {
     return contestsData.map((contest) => {
@@ -51,7 +62,12 @@ const Home = (props) => {
   }
 
   const renderLeagues = () => {
-    return <Leagues />
+    if (leagueData !== undefined) {
+      return leagueData.map((league) => {
+        return <Leagues key={league.id} league={league} goToContest={(e)=>goToContest(e,league.contest.id)} leaguesId={league.id} />
+      })
+    }
+
   }
 
   return (
@@ -61,7 +77,7 @@ const Home = (props) => {
 
         <div className="form-group">
           <div className="ui left action input">
-            <button className="ui teal labeled icon button" onClick={(event) => joinLeauge(event)}>
+            <button className="ui teal labeled icon button" onClick={(event) => joinLeaugeEvent(event)}>
               <i className="trophy icon"></i>
             Join
           </button>

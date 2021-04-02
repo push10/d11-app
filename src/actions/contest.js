@@ -1,5 +1,5 @@
 import {
-  LOAD_ALL_CONTEST,LOAD_ALL_MATCHES, REGISTER_FAIL, SET_MESSAGE, JOIN_LEAGUE
+  LOAD_ALL_CONTEST,LOAD_ALL_MATCHES, REGISTER_FAIL, SET_MESSAGE, JOIN_LEAGUE, LOAD_USER_LEAGUES
 } from "../actions/types";
 
 
@@ -70,36 +70,29 @@ export const loadAllContest = () => async dispatch => {
   );
 };
 
-export const joinContest = ( joiningCode) => (dispatch) => {
-  const user = JSON.parse(localStorage.getItem("user"))
-  console.log(`joining league for user id ${user}`);
-  return ContestService.joinContest(user.id,{joiningCode}).then(
+export const joinLeauge = ( joiningCode) => (dispatch) => {
+  const user = JSON.parse(localStorage.getItem("user")) 
+  return ContestService.joinLeauge(user.id,{joiningCode}).then(
     (response) => { 
       dispatch({
         type: JOIN_LEAGUE,
         payload: response.data
       });
-
       return Promise.resolve();
-    },
-    (error) => {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
+    }
+  );
+};
 
+export const loadUserLeauges = () => async dispatch => {
+  const user = JSON.parse(localStorage.getItem("user")) 
+  return ContestService.loadUserLeauges(user.id).then(
+    (response) => { 
+      console.log(`leagues ${response.data}`)
       dispatch({
-        type: REGISTER_FAIL,
+        type: LOAD_USER_LEAGUES,
+        payload: response.data
       });
-
-      dispatch({
-        type: SET_MESSAGE,
-        payload: message,
-      });
-
-      return Promise.reject();
+      return Promise.resolve();
     }
   );
 };
