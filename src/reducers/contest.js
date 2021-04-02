@@ -1,5 +1,5 @@
 import {
-    LOAD_ALL_CONTEST, LOAD_ALL_MATCHES
+    LOAD_ALL_CONTEST, LOAD_ALL_MATCHES, JOIN_LEAGUE
 } from "../actions/types";
 
 const user = JSON.parse(localStorage.getItem("user"));
@@ -22,6 +22,12 @@ export default function (state = initialState, action) {
                 ...state,
                 data: payload
             };
+        case JOIN_LEAGUE:
+            return {
+                ...state,
+                data: payload
+            };
+            
         default:
             return state;
     }

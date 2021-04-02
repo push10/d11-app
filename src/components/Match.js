@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Grid, Image, Icon, Segment, Divider } from 'semantic-ui-react'
 import Moment from 'moment';
 const Match = (props) => {

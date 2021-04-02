@@ -10,4 +10,6 @@ export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
 export const LOAD_ALL_MATCHES = "LOAD_ALL_MATCHES";
 
 export const LOAD_ALL_CONTEST = "LOAD_ALL_CONTEST";
+export const JOIN_LEAGUE = "JOIN_LEAGUE";
+
 

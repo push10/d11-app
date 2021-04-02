@@ -2,8 +2,13 @@ import axios from "axios";
 import {BASE_URL} from '../common/constant';
 
 
-const joinContest = (contestId) => {
-  console.log('join contest ---->');
+const joinContest = async (userId, league) => {
+  console.log('joining contest ---->',userId, league);
+  try {
+    return await axios.put(`${BASE_URL}/leagues/joinContest/${userId}`,league)
+  } catch (error) {
+    console.error('----------------eroror --------->', error);
+  }
 };
 
 const getAllContest = async () => {
