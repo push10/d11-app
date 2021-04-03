@@ -4,8 +4,9 @@ const Leagues = (props) => {
     const { league, goToContest, leagueId, history } = { ...props }
 
     const goToDashboard = (e) => {
+        e.preventDefault();
         console.log('league====>', history);
-        history.push("/dashboard");
+        history.push("/dashboard/1");
     }
 
     return (
@@ -14,18 +15,18 @@ const Leagues = (props) => {
                 <i className="large users middle aligned icon"></i>
                 <div className="content">
                     <div className="header">
-                        <a onClick={(e) => goToContest(e, leagueId)}> {league.name} </a>
+                        <a href='!#' onClick={(e) => goToContest(e, leagueId)}> {league.name} </a>
                     </div>
                     <div className="description">Updated 10 mins ago</div>
                 </div>
             </div>
 
             <div className="ui compact menu">
-                <a className="item" onClick={(e) => goToDashboard(e)}>
+                <a className="item"  href='!#' onClick={(e) => goToDashboard(e)}>
                     <i className="gamepad icon" ></i>
                     D11
                 </a>
-                <a className="item" onClick={(e) => goToDashboard(e)}>
+                <a className="item"  href='!#' onClick={(e) => goToDashboard(e)}>
                     <i className="gamepad icon" ></i>
                     Bet
                 </a>

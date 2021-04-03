@@ -10,7 +10,7 @@ const Home = (props) => {
   const { isLoggedIn } = useSelector(state => state.auth);
   const [joiningCode, setJoiningCode] = useState('');
 
-  const { contests } = useSelector(state => {
+  useSelector(state => {
     if (state.contest.data !== undefined) {
       contestsData = state.contest.data
       return contestsData;
@@ -18,7 +18,7 @@ const Home = (props) => {
     return state.contest.data
   });
 
-  const { leagues } = useSelector(state => {
+  useSelector(state => {
     if (state.contest.leagues !== undefined) {
       leagueData = state.contest.leagues
       return leagueData;
@@ -31,7 +31,7 @@ const Home = (props) => {
 
   useEffect(() => {
     if (isLoggedIn) {
-       dispatch(loadUserLeauges());
+      dispatch(loadUserLeauges());
     } else {
       props.history.push("/login");
     }
@@ -54,13 +54,7 @@ const Home = (props) => {
   }
 
 
-  const renderList = () => {
-    return contestsData.map((contest) => {
-      return <li className='item' key={contest.id}>
-        <a href='!#' onClick={(e) => goToContest(e, contest.id)}> {contest.name} </a>
-      </li>
-    })
-  }
+ 
 
   const renderLeagues = () => {
     if (leagueData !== undefined) {

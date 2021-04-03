@@ -6,7 +6,7 @@ import { loadAllMatches } from '../actions/contest';
 
 let matchesData = [];
 const ContestHome = (props) => { 
-  const { matches } = useSelector(state => { 
+  useSelector(state => { 
     if (state.contest.data !== undefined) {
       matchesData = state.contest.data
       return matchesData;
@@ -18,16 +18,16 @@ const ContestHome = (props) => {
 
   useEffect(() => {
     dispatch(loadAllMatches());
-    console.log(`matches state ${matches}`);
   }, [dispatch])
 
 
   const renderList = () => {
     if (matchesData) {
-
       return matchesData.map((match) => {
         if (match.hasOwnProperty('team1')) {
           return (<Match key={match.id} match={match} />)
+        }else{
+          return ''
         }
       })
     }

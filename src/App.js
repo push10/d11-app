@@ -95,7 +95,7 @@ const App = () => {
             <Route path="/mod" component={BoardModerator} />
             <Route path="/admin" component={BoardAdmin} />
             <Route path="/contest" component={ContestHome} />
-            <Route path="/dashboard" component={D11Dashboard} />
+            <Route path="/dashboard/:leagueId" component={D11Dashboard} />
           </Switch>
         </div>
       </div>

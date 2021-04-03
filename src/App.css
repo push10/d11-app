@@ -41,3 +41,7 @@ label {
 .no_border{
   border: 0px  !important;
 }
+
+.width_75_per{
+  width: 75%;
+}
