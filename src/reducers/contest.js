@@ -1,12 +1,12 @@
 import {
-    LOAD_ALL_CONTEST, LOAD_ALL_MATCHES, JOIN_LEAGUE, LOAD_USER_LEAGUES
+    LOAD_ALL_CONTEST, LOAD_ALL_MATCHES, JOIN_LEAGUE, LOAD_USER_LEAGUES, LOAD_LEAGUES_USER_DETAILS
 } from "../actions/types";
 
 const user = JSON.parse(localStorage.getItem("user"));
 
 const initialState = user
-    ? { isLoggedIn: true, user, data: [] , leagues:[]}
-    : { isLoggedIn: false, user: null, data: [] , leagues:[] };
+    ? { isLoggedIn: true, user, data: [], leagues: [] }
+    : { isLoggedIn: false, user: null, data: [], leagues: [] };
 
 export default function (state = initialState, action) {
     const { type, payload } = action;
@@ -29,6 +29,11 @@ export default function (state = initialState, action) {
             };
 
         case LOAD_USER_LEAGUES:
+            return {
+                ...state,
+                leagues: payload
+            };
+        case LOAD_LEAGUES_USER_DETAILS:
             return {
                 ...state,
                 leagues: payload

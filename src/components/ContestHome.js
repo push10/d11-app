@@ -5,7 +5,7 @@ import Match from './Match'
 import { loadAllMatches } from '../actions/contest';
 
 let matchesData = [];
-const Home = (props) => { 
+const ContestHome = (props) => { 
   const { matches } = useSelector(state => { 
     if (state.contest.data !== undefined) {
       matchesData = state.contest.data
@@ -39,4 +39,4 @@ const Home = (props) => {
 
   );
 }
-export default Home;
+export default ContestHome;

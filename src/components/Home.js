@@ -31,13 +31,13 @@ const Home = (props) => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      dispatch(loadUserLeauges());
+       dispatch(loadUserLeauges());
     } else {
       props.history.push("/login");
     }
   }, [dispatch, isLoggedIn, props.history])
 
-  const goToContest = (e, contestId) => { 
+  const goToContest = (e, contestId) => {
     if (e !== undefined) {
       e.preventDefault();
       props.history.push("/contest");
@@ -46,6 +46,7 @@ const Home = (props) => {
 
 
   const joinLeaugeEvent = (e) => {
+    console.log('in joining league event');
     e.preventDefault();
     dispatch(joinLeauge(joiningCode));
     setJoiningCode('')
@@ -64,7 +65,9 @@ const Home = (props) => {
   const renderLeagues = () => {
     if (leagueData !== undefined) {
       return leagueData.map((league) => {
-        return <Leagues key={league.id} league={league} goToContest={(e)=>goToContest(e,league.contest.id)} leaguesId={league.id} />
+        return <Leagues key={league.id} league={league}
+          goToContest={(e) => goToContest(e, league.contest.id)} leaguesId={league.id}
+          history={props.history} />
       })
     }
 

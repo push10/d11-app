@@ -34,3 +34,10 @@ label {
 .floatRight{
   float: right;
 }
+.rotate_vertical{
+  transform: rotate(270deg);
+}
+
+.no_border{
+  border: 0px  !important;
+}

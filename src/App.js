@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Router, Switch, Route, Link } from "react-router-dom";
 
@@ -18,10 +18,10 @@ import { logout } from "./actions/auth";
 import { clearMessage } from "./actions/message";
 
 import { history } from "./helpers/history";
+import  D11Dashboard  from "./components/D11Dashboard";
 
 const App = () => {
-  const [showModeratorBoard, setShowModeratorBoard] = useState(false);
-  const [showAdminBoard, setShowAdminBoard] = useState(false);
+  
 
   const { user: currentUser } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -31,13 +31,6 @@ const App = () => {
       dispatch(clearMessage()); // clear message when changing location
     });
   }, [dispatch]);
-
-  useEffect(() => {
-    if (currentUser) {
-      setShowModeratorBoard(true);
-      setShowAdminBoard(true);
-    }
-  }, [currentUser]);
 
   const logOut = () => {
     dispatch(logout());
@@ -58,42 +51,8 @@ const App = () => {
                 </Link>
               </li>
             )}
-
-
-            {showModeratorBoard && (
-              <li className="nav-item">
-                <Link to={"/mod"} className="nav-link">
-                  Moderator Board
-                </Link>
-              </li>
-            )}
-
-            {showAdminBoard && (
-              <li className="nav-item">
-                <Link to={"/admin"} className="nav-link">
-                  Admin Board
-                </Link>
-              </li>
-            )}
-
-            {currentUser && (
-              <li className="nav-item">
-                <Link to={"/contest"} className="nav-link">
-                  Contest
-                </Link>
-              </li>
-            )}
-
-
-
-            {currentUser && (
-              <li className="nav-item">
-                <Link to={"/user"} className="nav-link">
-                  User
-                </Link>
-              </li>
-            )}
           </div>
+
 
           {currentUser ? (
             <div className="navbar-nav ml-auto">
@@ -136,6 +95,7 @@ const App = () => {
             <Route path="/mod" component={BoardModerator} />
             <Route path="/admin" component={BoardAdmin} />
             <Route path="/contest" component={ContestHome} />
+            <Route path="/dashboard" component={D11Dashboard} />
           </Switch>
         </div>
       </div>

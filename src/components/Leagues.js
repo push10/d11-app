@@ -1,14 +1,18 @@
 import React from "react";
 
 const Leagues = (props) => {
-    const { league, goToContest, leagueId } = { ...props }
-    console.log('league====>', props);
+    const { league, goToContest, leagueId, history } = { ...props }
+
+    const goToDashboard = (e) => {
+        console.log('league====>', history);
+        history.push("/dashboard");
+    }
+
     return (
         <div className="ui relaxed divided list">
             <div className="item">
                 <i className="large users middle aligned icon"></i>
                 <div className="content">
-
                     <div className="header">
                         <a onClick={(e) => goToContest(e, leagueId)}> {league.name} </a>
                     </div>
@@ -17,12 +21,12 @@ const Leagues = (props) => {
             </div>
 
             <div className="ui compact menu">
-                <a className="item">
-                    <i className="gamepad icon"></i>
+                <a className="item" onClick={(e) => goToDashboard(e)}>
+                    <i className="gamepad icon" ></i>
                     D11
                 </a>
-                <a className="item">
-                    <i className="gamepad icon"></i>
+                <a className="item" onClick={(e) => goToDashboard(e)}>
+                    <i className="gamepad icon" ></i>
                     Bet
                 </a>
             </div>

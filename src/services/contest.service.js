@@ -4,6 +4,7 @@ import {BASE_URL} from '../common/constant';
 
 const joinLeauge = async (userId, league) => { 
   try {
+    console.log('joining leaguu');
     return await axios.put(`${BASE_URL}/leagues/joinContest/${userId}`,league)
   } catch (error) {
     console.error('----------------eroror --------->', error);
@@ -13,6 +14,14 @@ const joinLeauge = async (userId, league) => {
 const loadUserLeauges = async (userId) => { 
   try {
     return await axios.get(`${BASE_URL}/leagues/list/${userId}`)
+  } catch (error) {
+    console.error('----------------eroror --------->', error);
+  }
+};
+
+const loadLeagueUserDetails = async (userId, leagueId) => { 
+  try {
+    return await axios.get(`${BASE_URL}/leagueUserDetails/${userId}/${leagueId}`)
   } catch (error) {
     console.error('----------------eroror --------->', error);
   }
@@ -41,5 +50,6 @@ export default {
   getAllContest,
   getContest,
   getAllMatches,
-  loadUserLeauges
+  loadUserLeauges, 
+  loadLeagueUserDetails
 };

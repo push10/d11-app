@@ -1,5 +1,5 @@
 import {
-  LOAD_ALL_CONTEST,LOAD_ALL_MATCHES, REGISTER_FAIL, SET_MESSAGE, JOIN_LEAGUE, LOAD_USER_LEAGUES
+  LOAD_ALL_CONTEST,LOAD_ALL_MATCHES, REGISTER_FAIL, SET_MESSAGE, JOIN_LEAGUE, LOAD_USER_LEAGUES,  LOAD_LEAGUES_USER_DETAILS
 } from "../actions/types";
 
 
@@ -86,8 +86,7 @@ export const joinLeauge = ( joiningCode) => (dispatch) => {
 export const loadUserLeauges = () => async dispatch => {
   const user = JSON.parse(localStorage.getItem("user")) 
   return ContestService.loadUserLeauges(user.id).then(
-    (response) => { 
-      console.log(`leagues ${response.data}`)
+    (response) => {  
       dispatch({
         type: LOAD_USER_LEAGUES,
         payload: response.data
@@ -97,3 +96,15 @@ export const loadUserLeauges = () => async dispatch => {
   );
 };
 
+export const loadLeagueUserDetails = (leagueId) => async dispatch => {
+  const user = JSON.parse(localStorage.getItem("user")) 
+  return ContestService.loadLeagueUserDetails(user.id, leagueId).then(
+    (response) => {  
+      dispatch({
+        type: LOAD_LEAGUES_USER_DETAILS,
+        payload: response.data
+      });
+      return Promise.resolve();
+    }
+  );
+};
