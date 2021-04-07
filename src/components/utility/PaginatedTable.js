@@ -62,6 +62,7 @@ export default function PaginatedTable(props) {
         return (
             <TableCell key={index} align='right'>
                 <MatchCard matchData={match} />
+               
             </TableCell>
         );
     }

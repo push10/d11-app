@@ -45,3 +45,10 @@ label {
 .width_75_per{
   width: 75%;
 }
+.display-flex{
+  display: flex;
+}
+
+.left-align{
+  text-align: left;
+}

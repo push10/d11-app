@@ -17,7 +17,7 @@ const Leagues = (props) => {
                     <div className="header">
                         <a href='!#' onClick={(e) => goToContest(e, leagueId)}> {league.name} </a>
                     </div>
-                    <div className="description">Updated 10 mins ago</div>
+                    
                 </div>
             </div>
 
@@ -26,10 +26,7 @@ const Leagues = (props) => {
                     <i className="gamepad icon" ></i>
                     D11
                 </a>
-                <a className="item"  href='!#' onClick={(e) => goToDashboard(e)}>
-                    <i className="gamepad icon" ></i>
-                    Bet
-                </a>
+                
             </div>
         </div>
     )
