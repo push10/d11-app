@@ -6,7 +6,7 @@ const Leagues = (props) => {
     const goToDashboard = (e) => {
         e.preventDefault();
         console.log('league====>', history);
-        history.push("/dashboard/1");
+        history.push("/d11-app/dashboard/1");
     }
 
     return (

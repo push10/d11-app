@@ -61,7 +61,7 @@ const Login = (props) => {
     if (checkBtn.current.context._errors.length === 0) { 
       dispatch(login(user))
         .then(() => {
-          props.history.push("/home");
+          props.history.push("/d11-app/home");
           //window.location.reload();
         })
         .catch(() => {

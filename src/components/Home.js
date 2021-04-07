@@ -33,14 +33,14 @@ const Home = (props) => {
     if (isLoggedIn) {
       dispatch(loadUserLeauges());
     } else {
-      props.history.push("/login");
+      props.history.push("/d11-app/login");
     }
   }, [dispatch, isLoggedIn, props.history])
 
   const goToContest = (e, contestId) => {
     if (e !== undefined) {
       e.preventDefault();
-      props.history.push("/contest");
+      props.history.push("/d11-app/contest");
     }
   }
 
@@ -51,6 +51,7 @@ const Home = (props) => {
     dispatch(joinLeauge(joiningCode));
     setJoiningCode('')
 
+          window.location.reload();
   }
 
 

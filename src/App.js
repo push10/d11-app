@@ -40,13 +40,13 @@ const App = () => {
     <Router history={history}>
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
-          <Link to={"/"} className="navbar-brand">
+          <Link to={"/d11-app"} className="navbar-brand">
             Fantasy League
           </Link>
           <div className="navbar-nav mr-auto">
             {currentUser && (
               <li className="nav-item">
-                <Link to={"/home"} className="nav-link">
+                <Link to={"/d11-app/home"} className="nav-link">
                   Home
                 </Link>
               </li>
@@ -57,12 +57,12 @@ const App = () => {
           {currentUser ? (
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
-                <Link to={"/profile"} className="nav-link">
+                <Link to={"/d11-app/profile"} className="nav-link">
                   {currentUser.username}
                 </Link>
               </li>
               <li className="nav-item">
-                <a href="/login" className="nav-link" onClick={logOut}>
+                <a href="/d11-app/login" className="nav-link" onClick={logOut}>
                   LogOut
                 </a>
               </li>
@@ -70,13 +70,13 @@ const App = () => {
           ) : (
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
-                <Link to={"/login"} className="nav-link">
+                <Link to={"/d11-app/login"} className="nav-link">
                   Login
                 </Link>
               </li>
 
               <li className="nav-item">
-                <Link to={"/register"} className="nav-link">
+                <Link to={"/d11-app/register"} className="nav-link">
                   Sign Up
                 </Link>
               </li>
@@ -87,15 +87,13 @@ const App = () => {
 
         <div className="container mt-3">
           <Switch>
-            <Route exact path={["/", "/home"]} component={Home} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/profile" component={Profile} />
-            <Route path="/user" component={BoardUser} />
-            <Route path="/mod" component={BoardModerator} />
-            <Route path="/admin" component={BoardAdmin} />
-            <Route path="/contest" component={ContestHome} />
-            <Route path="/dashboard/:leagueId" component={D11Dashboard} />
+            <Route exact path={["/d11-app", "/d11-app/home"]} component={Home} />
+            <Route exact path="/d11-app/login" component={Login} />
+            <Route exact path="/d11-app/register" component={Register} />
+            <Route exact path="/d11-app/profile" component={Profile} />
+            <Route path="/d11-app/user" component={BoardUser} />
+            <Route path="/d11-app/contest" component={ContestHome} />
+            <Route path="/d11-app/dashboard/:leagueId" component={D11Dashboard} />
           </Switch>
         </div>
       </div>
