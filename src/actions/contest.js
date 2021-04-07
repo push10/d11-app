@@ -99,8 +99,7 @@ export const loadUserLeauges = () => async dispatch => {
 export const loadLeagueUserDetails = (leagueId) => async dispatch => {
   const user = JSON.parse(localStorage.getItem("user")) 
   return ContestService.loadLeagueUserDetails(user.id, leagueId).then(
-    (response) => {  
-      console.log(`league user match details ${response.data}`);
+    (response) => {   
       dispatch({
         type: LOAD_LEAGUES_USER_DETAILS,
         payload: response.data

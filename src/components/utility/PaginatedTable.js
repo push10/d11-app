@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -9,41 +9,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import MatchCard from '../Match/MatchCard';
-import SentimentSatisfiedSharpIcon from '@material-ui/icons/SentimentSatisfiedSharp';
 
-const columns = [
-    { id: 'name', label: 'Name', minWidth: 170 },
-    { id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
-    {
-        id: 'population',
-        label: 'Population',
-        minWidth: 170,
-        align: 'right',
-        format: (value) => value.toLocaleString('en-US'),
-    },
-    {
-        id: 'size',
-        label: 'Size\u00a0(km\u00b2)',
-        minWidth: 170,
-        align: 'right',
-        format: (value) => value.toLocaleString('en-US'),
-    },
-    {
-        id: 'density',
-        label: 'Density',
-        minWidth: 170,
-        align: 'right',
-        format: (value) => value.toFixed(2),
-    },
-];
-
-function createData(name, code, population, size) {
-    const density = population / size;
-    return { name, code, population, size, density };
-}
-
-var rows = [
-];
 
 const useStyles = makeStyles({
     root: {
@@ -54,14 +20,13 @@ const useStyles = makeStyles({
     },
 });
 
-export default function PaginatedTable(props) {
-    console.log(`props ${props.columnData}`);
+export default function PaginatedTable(props) { 
 
 
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
-    const [columnData, setColumnData] = React.useState(props.columnData);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10); 
+    const nonPaidUserForLeague = props.nonPaidUserForLeague
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -80,7 +45,7 @@ export default function PaginatedTable(props) {
         )
     }
     const renderColumns = () => {
-        if (props.columnData != undefined) {
+        if (props.columnData !== undefined) {
 
             return props.columnData.map((column, index) => (
                 <TableCell
@@ -93,45 +58,41 @@ export default function PaginatedTable(props) {
         }
 
     }
-    const renderMatchColumn = (match, index) => {
-        var value = `${match.team1.name} vs  ${match.team2.name}`;
+    const renderMatchColumn = (match, index) => { 
         return (
             <TableCell key={index} align='right'>
                 <MatchCard matchData={match} />
             </TableCell>
         );
     }
-    const renderFaces = (rowData, currentUser) =>{ 
-    //    console.log(`matc data ${match.id} - winner ${match.winner.id} pure winner ${rowData.winnerUser}`);
-    console.log(`${currentUser.id} === ${rowData.winnerUser}`);
-       var flag = 2
-        if(currentUser !== undefined && rowData.winnerUser != undefined && currentUser.id === rowData.winnerUser.id){
-            return (           
-                <i class="smile outline big green icon"></i>
+    const renderFaces = (rowData, columnData) => {
+        var key = rowData.leagueId + "-" + rowData.id + "-" + columnData.id;
+
+        if (nonPaidUserForLeague.indexOf(key) > -1) {
+            return (
+                <i className="ban big red icon"></i>
             )
-        }else if(flag === 2){
-            return (           
-                <i class="frown outline big red icon"></i>
+        } else if (columnData !== undefined && rowData.winnerUser != undefined && columnData.id === rowData.winnerUser.id) {
+            return (
+                <i className="smile outline big green icon"></i>
             )
-        }else if(flag === 3){
-            return (           
-                <i class="smile outline big orange icon"></i>
-            ) 
+        } else {
+            return (
+                <i className="smile outline big orange icon"></i>
+            )
         }
-       
+
     }
     const renderMatcheRows = () => {
-        if (props.rowData !== undefined) {
-            console.log('row data', props.rowData);
+        if (props.rowData !== undefined) { 
             return props.rowData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => {
 
                 return (
                     <TableRow hover role="checkbox" tabIndex={-1} key={`row-${index}`}>
                         {renderMatchColumn(row, index)}
                         {props.columnData.map((column) => { 
-                            console.log('==================>',row);
                             return (
-                                <TableCell key={`row-cell-${index}`}>
+                                <TableCell key={`row-cell-${index}-${column.id}`}>
                                     {renderFaces(row, column)}
                                 </TableCell>
                             );

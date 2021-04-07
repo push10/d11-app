@@ -1,14 +1,22 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Grid, Image, Icon, Segment, Divider } from 'semantic-ui-react'
 import { loadLeagueUserDetails } from '../actions/contest';
+import Charts from "./utility/Charts";
 import PaginatedTable from "./utility/PaginatedTable";
 
-let leagueData = {};
-let matchesData = [];
-let columns = [];
 const D11Dashboard = (props) => {
+
+
+    let leagueData = {};
+    let matchesData = [];
+    let columns = [];
+    let nonPaidUserForLeague = [];
+    let userInvestementDetails = []
+    let userChartData = []
+    let userInvement = []
+    let userProfit = []
+    let userCh
     const dispatch = useDispatch();
     const { leagueId } = props.match.params
     useSelector(state => {
@@ -23,14 +31,20 @@ const D11Dashboard = (props) => {
     useSelector(state => {
         if (state.contest.leagues !== undefined && state.contest.leagues.length > 0) {
             matchesData = []
-            state.contest.leagues.map((league) => {
-                if (league.match !== undefined) {
+            state.contest.leagues.map((league, index) => {
+                if (league.match !== undefined) { 
                     const matchVar = league.match
                     matchVar.winnerUser = league.winnerUser
+                    matchVar.paymentDone = league.paymentDone
+                    matchVar.leagueId = league.league.id
                     matchesData.push(matchVar)
-                } else {
-                    return ''
+                    if (index === 0) {
+                        nonPaidUserForLeague = league.nonPaidUsers
+                        userInvestementDetails = league.userInvestementDetails
+                    }
                 }
+                return ''
+
             })
 
             return matchesData;
@@ -41,57 +55,37 @@ const D11Dashboard = (props) => {
         dispatch(loadLeagueUserDetails(leagueId))
     }, [dispatch, leagueId])
 
-    const renderMatchDiv = (matchesDataInput) => {
-        if (matchesDataInput !== undefined) {
-            return matchesDataInput.map((match) => {
-                if (match.hasOwnProperty('team1')) {
-                    return <th className="ten wide" key={match.id}>
-                        <Segment color='yellow'>
-                            <Segment >
-                                <Grid columns={2} >
-                                    <Divider vertical>
-                                        <Icon name='handshake' color='red' />
-                                    </Divider>
-                                    <Grid.Row verticalAlign='middle'>
-                                        <Grid.Column className='align_right'>
-                                            <Image className='floatRight' src={process.env.PUBLIC_URL + `/images/${match.team1.shortName}.png`} size='mini' />
-                                        </Grid.Column>
-                                        <Grid.Column textAlign='right'>
-                                            <Image className='floatRight' src={process.env.PUBLIC_URL + `/images/${match.team2.shortName}.png`} size='mini' />
-                                        </Grid.Column>
-                                    </Grid.Row>
-                                </Grid>
-                            </Segment>
-                        </Segment>
-                    </th>
-                } else {
-                    return ''
-                }
-            })
-        }
 
+    const renderTr = (users, winner, leagueId) => {
+        const user = JSON.parse(localStorage.getItem("user"))
+        columns = []
+        users.sort((x, y) => { return x.id === user.id ? -1 : y.id === user.id ? 1 : 0; });
 
-    }
-
-    const renderTr = (users, winner) => {
-        const user = JSON.parse(localStorage.getItem("user")) 
-        users.sort((x, y) => { return x.id === user.id ? -1 : y.id === user.id ? 1 : 0; }); 
-
-        return users.map((user) => {
-            columns.push({ id: user.id, label: user.firstName, minWidth: 50 , winner});
+        users.map((userObj) => {
+            userChartData.push(buildUserData(userObj,leagueId))
+            return columns.push({ id: userObj.id, label: userObj.firstName, minWidth: 50, winner, leagueId });
 
         })
     }
-    const renderMatchColumn = () => {
-        if (matchesData !== undefined) {
-            // return (renderMatchDiv(matchesData))
-        }
+
+    const buildUserData = (userObj, leagueId) => {
+        var key = `${leagueId}-${userObj.id}` 
+        return { id: userObj.id, firstName: userObj.firstName, 
+            investmentAmt: userInvestementDetails[key] !== undefined ? userInvestementDetails[key].totalInvestmentAmt : 0 , 
+            winningAmt: userInvestementDetails[key] !== undefined ? userInvestementDetails[key].winningAmt : 0 }
     }
+
     const renderUserRow = () => {
-        if (leagueData.league !== undefined && leagueData.league.user !== undefined && Array.isArray(leagueData.league.user)) { 
+        if (leagueData.league !== undefined && leagueData.league.user !== undefined && Array.isArray(leagueData.league.user)) {
             return (
-                renderTr(leagueData.league.user, leagueData.winnerUser)
+                renderTr(leagueData.league.user, leagueData.winnerUser, leagueData.league.id)
             )
+        }
+
+        if (userInvestementDetails !== undefined && userInvestementDetails.length > 0) {
+            userInvestementDetails.map(invObj => {
+
+            });
         }
     }
 
@@ -101,11 +95,12 @@ const D11Dashboard = (props) => {
     return (
         <React.Fragment>
             <h1>Dashboard</h1>
-            {renderMatchColumn()}
             {renderUserRow()}
 
+            <Charts userChartData={userChartData} />
+            <PaginatedTable columnData={columns} rowData={matchesData} nonPaidUserForLeague={nonPaidUserForLeague} />
+            
 
-            <PaginatedTable columnData={columns} rowData={matchesData} />
         </React.Fragment>
     )
 
