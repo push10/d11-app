@@ -1,7 +1,7 @@
 {
   "homepage": "http://push10.github.io/d11-app",
   "name": "react-redux-hooks-jwt-auth",
-  "proxy": "http://192.168.0.105:8080",
+  "proxy": "http://localhost:8080",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
