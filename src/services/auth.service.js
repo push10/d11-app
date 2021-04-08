@@ -1,5 +1,5 @@
-import axios from "axios";
-const BASE_URL = "http://localhost:8080"; 
+import axios from "axios"; 
+import {BASE_URL} from '../common/constant';
 
 const register = ( user) => { 
   try {
@@ -17,7 +17,7 @@ const login = (user) => {
     .then((response) => { 
       if (response.data.accessToken) {
         localStorage.setItem("user", JSON.stringify(response.data));
-      }
+      }   
 
       return response.data;
     });

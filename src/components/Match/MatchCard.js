@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const renderTooltipInfo = (matchData) => {
-    return `Match No: ${matchData.matchNo}, Venue: ${matchData.venue}, ${matchData.city}`
+    return `Match No: ${matchData.matchNo}, Date: ${Moment(matchData.schedule).format('DD MMM, YYYY')} Venue: ${matchData.venue}, ${matchData.city}`
 }
 
 const renderDayOrNightIcon = (matchData)=>{
