@@ -1,1 +1,1 @@
-export const BASE_URL = "http://d49fa6f8d438.ngrok.io";  
+export const BASE_URL = "https://d11-app-service.herokuapp.com";  
