@@ -1,5 +1,5 @@
 {
-  "homepage": "http://push10.github.io/d11-app",
+  "homepage": "https://d11-app.herokuapp.com/", 
   "name": "react-redux-hooks-jwt-auth",
   "proxy": "http://localhost:8080",
   "version": "0.1.0",
