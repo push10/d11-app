@@ -26,7 +26,10 @@ const Leagues = (props) => {
                     <i className="gamepad icon" ></i>
                     D11
                 </a>
-                
+                <a className="item"  href='https://drive.google.com/file/d/1S7UDFGiIElAxkkXeR842XhaUiNmxaa4Z/view?usp=sharing' >
+                    <i className="gamepad icon" ></i>
+                    Bet
+                </a>
             </div>
         </div>
     )
