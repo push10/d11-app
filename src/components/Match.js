@@ -40,7 +40,7 @@ const Match = (props) => {
                             <br />Venue: {match.venue}, {match.city}
                         </Grid.Column>
                         <Grid.Column>
-                            Payment button
+                           
                         </Grid.Column>
                     </Grid>
 

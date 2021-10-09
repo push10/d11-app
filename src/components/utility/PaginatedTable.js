@@ -73,7 +73,10 @@ export default function PaginatedTable(props) {
             return (
                 <i className="ban big red icon"></i>
             )
-        } else if (columnData !== undefined && rowData.winnerUser != undefined && columnData.id === rowData.winnerUser.id) {
+        } else if (columnData !== undefined && rowData.winnerUser !== undefined 
+                &&columnData !== null 
+                && rowData.winnerUser !== null
+                && columnData.id === rowData.winnerUser.id) {
             return (
                 <i className="smile outline big green icon"></i>
             )
@@ -91,12 +94,15 @@ export default function PaginatedTable(props) {
                 return (
                     <TableRow hover role="checkbox" tabIndex={-1} key={`row-${index}`}>
                         {renderMatchColumn(row, index)}
-                        {props.columnData.map((column) => { 
+                        {props.columnData.map((column) => {  
+                            if(column == null || column === "null"){
+                                return (<div></div>)
+                            }else{
                             return (
                                 <TableCell key={`row-cell-${index}-${column.id}`}>
                                     {renderFaces(row, column)}
                                 </TableCell>
-                            );
+                            );}
                         })}
                     </TableRow>
                 );

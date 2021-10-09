@@ -1,1 +1,1 @@
-export const BASE_URL = "https://d11-app-service.herokuapp.com";  
+export const BASE_URL = "http://localhost:8080";  

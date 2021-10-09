@@ -19,6 +19,7 @@ import { clearMessage } from "./actions/message";
 
 import { history } from "./helpers/history";
 import  D11Dashboard  from "./components/D11Dashboard";
+import Betting from "./components/betting/Betting";
 
 const App = () => {
   
@@ -94,6 +95,7 @@ const App = () => {
             <Route path="/d11-app/user" component={BoardUser} />
             <Route path="/d11-app/contest" component={ContestHome} />
             <Route path="/d11-app/dashboard/:leagueId" component={D11Dashboard} />
+            <Route path="/d11-app/betting/:userId" component={Betting} />
           </Switch>
         </div>
       </div>

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadLeagueUserDetails } from '../actions/contest';
 import Charts from "./utility/Charts";
 import PaginatedTable from "./utility/PaginatedTable";
+import PlainTable from "./utility/PlainTable";
 
 const D11Dashboard = (props) => {
 
@@ -14,9 +15,7 @@ const D11Dashboard = (props) => {
     let nonPaidUserForLeague = [];
     let userInvestementDetails = []
     let userChartData = []
-    let userInvement = []
-    let userProfit = []
-    let userCh
+    
     const dispatch = useDispatch();
     const { leagueId } = props.match.params
     useSelector(state => {
@@ -76,6 +75,7 @@ const D11Dashboard = (props) => {
     }
 
     const renderUserRow = () => {
+        
         if (leagueData.league !== undefined && leagueData.league.user !== undefined && Array.isArray(leagueData.league.user)) {
             return (
                 renderTr(leagueData.league.user, leagueData.winnerUser, leagueData.league.id)
@@ -87,6 +87,7 @@ const D11Dashboard = (props) => {
 
             });
         }
+        console.log(`in render user row ${columns.length}`);
     }
 
 
@@ -97,9 +98,9 @@ const D11Dashboard = (props) => {
             <h1>Dashboard</h1>
             {renderUserRow()}
 
-            <Charts userChartData={userChartData} />
-            <PaginatedTable columnData={columns} rowData={matchesData} nonPaidUserForLeague={nonPaidUserForLeague} />
-            
+            {/* <Charts userChartData={userChartData} /> */}
+            {/* <PaginatedTable columnData={columns} rowData={matchesData} nonPaidUserForLeague={nonPaidUserForLeague} /> */}
+            <PlainTable columnData={columns} rowData={matchesData} />
 
         </React.Fragment>
     )

@@ -9,6 +9,11 @@ const Leagues = (props) => {
         history.push("/d11-app/dashboard/1");
     }
 
+    const goToBettingPage = (e) => {
+        e.preventDefault(); 
+        history.push("/d11-app/betting/1");
+    }
+
     return (
         <div className="ui relaxed divided list">
             <div className="item">
@@ -26,7 +31,7 @@ const Leagues = (props) => {
                     <i className="gamepad icon" ></i>
                     D11
                 </a>
-                <a className="item"  href='https://drive.google.com/file/d/1S7UDFGiIElAxkkXeR842XhaUiNmxaa4Z/view?usp=sharing' >
+                <a className="item"  href='#' onClick={(e)=> goToBettingPage(e)} >
                     <i className="gamepad icon" ></i>
                     Bet
                 </a>
