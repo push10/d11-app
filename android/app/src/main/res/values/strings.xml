@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">d11-app</string>
+    <string name="title_activity_main">d11-app</string>
+    <string name="package_name">com.psd.d11</string>
+    <string name="custom_url_scheme">com.psd.d11</string>
+</resources>

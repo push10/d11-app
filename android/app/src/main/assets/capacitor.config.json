@@ -1,0 +1,6 @@
+{
+	"appId": "com.psd.d11",
+	"appName": "d11-app",
+	"webDir": "build",
+	"bundledWebRuntime": false
+}

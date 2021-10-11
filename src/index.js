@@ -4,8 +4,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 import "./index.css";
 import 'semantic-ui-css/semantic.min.css'
-import App from "./App";
-import * as serviceWorker from "./serviceWorker";
+import App from "./App"; 
 
 ReactDOM.render(
   <Provider store={store}>
@@ -17,4 +16,3 @@ ReactDOM.render(
 // If you want your app to work offline and load faster, you can chađinge
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
